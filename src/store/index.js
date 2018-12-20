@@ -1,32 +1,33 @@
 import Vue from 'vue';
 import Vuex from 'vuex'
 
-import Auth from '../services/Auth'
+import API from '../services'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
         isLoggedIn: false,
-        profile: {}
+        profile: {},
+        tasks: {}
     },
     actions: {
-        login({ commit }, payload) {
-            return Auth.login(payload)
-                .then(data => {
-                    commit('setLoggedIn', true)
-                    commit('setToken', data.token);
-                })
+        async login({ commit }, payload) {
+            const data = await API.login(payload)
+            commit('setLoggedIn', true)
+            commit('setToken', data.token);
         },
         logout({ commit }) {
             commit('setLoggedIn', false)
             commit('setToken', '')
         },
-        getProfile({ commit }) {
-            return Auth.getProfile()
-                .then(data => {
-                    commit('setProfile', data)
-                })
+        async getProfile({ commit }) {
+            const data = await API.getProfile()
+            commit('setProfile', data)
+        },
+        async getTasks({ commit }) {
+            const data = await API.getTasks()
+            commit('setTasks', data)
         }
     },
     mutations: {
@@ -38,11 +39,15 @@ const store = new Vuex.Store({
         },
         setProfile(state, profile) {
             state.profile = profile
+        },
+        setTasks(state, tasks) {
+            state.tasks = tasks
         }
     },
     getters: {
         isLoggedIn: state => state.isLoggedIn,
-        profile: state => state.profile
+        profile: state => state.profile,
+        tasks: state => state.tasks
     }
 })
 

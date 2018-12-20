@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import HomePage from '../pages/HomePage.vue'
-import LoginPage from '../pages/LoginPage.vue'
+import AppLayout from '@/layouts/AppLayout.vue'
+import AuthLayout from '@/layouts/AuthLayout.vue'
+
+import TasksListPage from '@/pages/TasksListPage.vue'
+import LoginPage from '@/pages/LoginPage.vue'
+import ProfilePage from '@/pages/ProfilePage.vue'
 
 import ifNotAuthorized from './helpers/ifNotAuthorized'
 import ifAuthorized from './helpers/ifAuthorized'
@@ -17,14 +21,30 @@ const routes = [
         beforeEnter: initApp,
         children: [
             { 
-                path: '', 
-                component: HomePage,
-                beforeEnter: ifNotAuthorized
+                path: '/app', 
+                component: AppLayout,
+                beforeEnter: ifNotAuthorized,
+                children: [
+                    {
+                        path: '',
+                        component: TasksListPage
+                    },
+                    {
+                        path: 'profile',
+                        component: ProfilePage
+                    }
+                ]
             },
             { 
-                path: '/login', 
-                component: LoginPage, 
-                beforeEnter: ifAuthorized
+                path: '/', 
+                component: AuthLayout, 
+                beforeEnter: ifAuthorized,
+                children: [
+                    {
+                        path: '/login',
+                        component: LoginPage
+                    }
+                ]
             }
         ]
     }

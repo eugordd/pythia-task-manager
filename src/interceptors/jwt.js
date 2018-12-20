@@ -1,4 +1,5 @@
 import store from '../store'
+import router from '../router'
 
 const onSuccess = response => {
   const newToken = response.config.headers.Authorization
@@ -10,6 +11,7 @@ const onSuccess = response => {
 const onError = error => {
   if (error.response.status === 403 && error.response.data === 'Access denied') {
     store.dispatch('logout');
+    router.push({ path: '/login' })
   }
   return Promise.reject(error); 
 }
