@@ -11,9 +11,9 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
     name: 'ProfilePage',
     computed: mapGetters(['profile']),
-    methods: mapActions(['getTasks']),
+    methods: mapActions(['getProfile']),
     created() {
-        this.getTasks()
+        this.getProfile()
     }
 }
 </script>
