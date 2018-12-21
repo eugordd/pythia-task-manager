@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Header from '@/components/app/Header.vue'
-import Sidebar from '@/components/app/Sidebar.vue'
+import Header from '@/components/app/Global/Header/Header.vue'
+import Sidebar from '@/components/app/Global/Sidebar/Sidebar.vue'
 
 export default {
     name: 'AppLayout',
