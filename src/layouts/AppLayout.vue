@@ -19,6 +19,9 @@ export default {
 }
 </script>
 
-<style lang="css">
-    
+<style lang="sass">
+
+.app-layout
+    background: #F7F8F9
+
 </style>

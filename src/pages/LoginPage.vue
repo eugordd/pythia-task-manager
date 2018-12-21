@@ -44,4 +44,7 @@ export default {
             flex-direction: column
             width: 300px
             padding: 10px
+
+    input
+      caret-color: red
 </style>
