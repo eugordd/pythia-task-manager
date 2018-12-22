@@ -1,13 +1,17 @@
 <template>
     <header class="header">
         <SearchBar />
-        <UserTab />
-        <button class="header-block" type="button">
-            <div class="header-button header-button--bell"></div>
-        </button>
-        <button class="header-block" type="button">
-            <div class="header-button header-button--info"></div>
-        </button>
+        <div class="header-right">
+            <UserTab />
+            <ul class="header-list">
+                <button class="header-block" type="button">
+                    <div class="header-button header-button--bell"></div>
+                </button>
+                <button class="header-block" type="button">
+                    <div class="header-button header-button--info"></div>
+                </button>
+            </ul>
+        </div>
         <!-- Such a Header with button "Logout"
         <button @click="logoutUser()">Logout</button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -35,13 +39,33 @@ export default {
 <style lang="scss">
     .header {
         display: flex;
+        position: fixed;
+        top: 0;
+        left: 96px;
+        width: calc(100% - 96px);
+        background-color: #ffffff;
+        z-index: 10;
+
+        &-right {
+            display: flex;
+        }
+
+        &-list {
+            flex: none;
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+            display: flex;
+        }
 
         &-block {
+            display: block;
             padding: 27px 30px 25px;
             transition: background-color .125s;
             border: 0;
             background: 0;
             cursor: pointer;
+            flex: 1 93px;
 
             &:focus {
                 outline: 0;
