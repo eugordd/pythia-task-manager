@@ -61,8 +61,8 @@ export default {
 <style lang="scss" scoped>
 
 .tasks-list {
-    width: 1000px;
-    margin: 0 auto;
+    // width: 1000px;
+    // margin: 0 auto;
 }
 
 .tasks {

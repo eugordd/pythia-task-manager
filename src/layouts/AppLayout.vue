@@ -1,8 +1,12 @@
 <template>
     <div class="app-layout">
-        <Header />
         <Sidebar />
-        <router-view />
+        <div class="app-layout--wrap">
+            <Header />
+            <div class="app-layout--page">
+                <router-view />
+            </div>
+        </div>
     </div>
 </template>
 
@@ -19,9 +23,23 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="scss">
+    .app-layout {
+        display: flex;
 
-.app-layout
-    background: #F7F8F9
+        &--wrap {
+            display: flex;
+        }
+
+        &--page {
+            background: #F7F8F9;
+            flex: 1 1;
+            position: relative;
+            left: 96px;
+            top: 84px;
+            padding-top: 36px;
+            padding-left: 53px;
+        }
+    }
 
 </style>

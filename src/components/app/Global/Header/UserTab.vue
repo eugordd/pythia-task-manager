@@ -27,11 +27,11 @@ export default {
     methods: {
         ...mapActions(['getProfile', 'logout']),
         toggleAccountInfo() {
-            if (!this.isOpen) {
-                this.$nextTick(() => {
-                    this.$refs.usertab.focus()
-                })
-            }
+            this.$nextTick(() => { 
+                this.isOpen 
+                ? this.$refs.usertab.focus() 
+                : this.$refs.usertab.blur() 
+            })
             this.isOpen = !this.isOpen
         },
         closeAccountInfo() {

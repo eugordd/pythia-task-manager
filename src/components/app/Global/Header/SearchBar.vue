@@ -30,7 +30,6 @@ export default {
         width: 100%;
         line-height: 21px;
         border: 0;
-        flex: 1;
 
         &:focus {
             outline: 0;
@@ -41,7 +40,7 @@ export default {
 
         &-wrap {
             position: relative;
-            flex: 1;
+            flex: 1 1;
             display: flex;
         }
 
