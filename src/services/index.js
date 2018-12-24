@@ -17,5 +17,10 @@ export default {
 		return axios.get(api + 'tasks')
 			.then(response => response.data)
 			.catch(error => Promise.reject(error.response))
+	},
+	changeTaskStatus(data) {
+		return axios.post(api + 'tasks/' + data.uid + '/next')
+			.then(response => response.data)
+			.catch(error => Promise.reject(error.response))
 	}
 }
