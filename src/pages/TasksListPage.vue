@@ -10,6 +10,10 @@
                 <div class="tasks__card" v-for="task in tasks.backlog" :key="task.uid">
                     <span class="tasks__card-title">{{ task.title }}</span>
                     <span class="tasks__card-description">{{ task.description }}</span>
+                    <button 
+                        class="tasks__card-button" 
+                        @click="toSprint(task.uid)"
+                        :disabled="!task.next_step_allowed">→</button>
                 </div>
             </div>
 
@@ -19,6 +23,10 @@
                 <div class="tasks__card" v-for="task in tasks.storypoint" :key="task.uid">
                     <span class="tasks__card-title">{{ task.title }}</span>
                     <span class="tasks__card-description">{{ task.description }}</span>
+                    <button 
+                        class="tasks__card-button" 
+                        @click="toProcess(task.uid)"
+                        :disabled="!task.next_step_allowed">→</button>
                 </div>
             </div>
 
@@ -28,6 +36,10 @@
                 <div class="tasks__card" v-for="task in tasks.progress" :key="task.uid">
                     <span class="tasks__card-title">{{ task.title }}</span>
                     <span class="tasks__card-description">{{ task.description }}</span>
+                    <button 
+                        class="tasks__card-button" 
+                        @click="toEnd(task.uid)"
+                        :disabled="!task.next_step_allowed">→</button>
                 </div>
             </div>
 
@@ -51,7 +63,18 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
     name: 'TasksListPage',
     computed: mapGetters(['tasks']),
-    methods: mapActions(['getTasks']),
+    methods: { 
+        ...mapActions(['getTasks', 'changeTaskStatus']),
+        toSprint(uid) {
+            this.changeTaskStatus({ uid })
+        },
+        toProcess(uid) {
+            this.changeTaskStatus({ uid })
+        },
+        toEnd(uid) {
+            this.changeTaskStatus({ uid })
+        },
+    },
     created() {
         this.getTasks()
     }
@@ -59,11 +82,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.tasks-list {
-    // width: 1000px;
-    // margin: 0 auto;
-}
 
 .tasks {
     display: flex;
@@ -103,6 +121,18 @@ export default {
         &-description {
             color: #AAB3BC;
             font-size: 12px;
+        }
+
+        &-button {
+            color: #fff;
+            background: #51C75B;
+            width: 50px;
+            align-self: flex-end;
+
+            &:disabled {
+                background: #AAB3BC;
+                cursor: not-allowed;
+            }
         }
      }
 }

@@ -28,6 +28,10 @@ const store = new Vuex.Store({
         async getTasks({ commit }) {
             const data = await API.getTasks()
             commit('setTasks', data)
+        },
+        async changeTaskStatus({ dispatch }, payload) {
+            await API.changeTaskStatus(payload)
+            dispatch('getTasks')
         }
     },
     mutations: {
