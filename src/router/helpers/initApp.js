@@ -5,5 +5,7 @@ export default (to, from, next) => {
     
     if (token) store.commit('setLoggedIn', true)
 
-	return next();
+    if (to.path === '/') return next('/login')
+
+	return next()
 }

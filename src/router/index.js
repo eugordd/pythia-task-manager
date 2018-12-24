@@ -21,28 +21,31 @@ const routes = [
         beforeEnter: initApp,
         children: [
             { 
-                path: '/app', 
+                path: 'app', 
                 component: AppLayout,
                 beforeEnter: ifNotAuthorized,
                 children: [
                     {
                         path: '',
-                        component: TasksListPage
+                        component: TasksListPage,
+                        name: 'tasks'
                     },
                     {
                         path: 'profile',
-                        component: ProfilePage
+                        component: ProfilePage,
+                        name: 'profile'
                     }
                 ]
             },
             { 
-                path: '/', 
+                path: '',
                 component: AuthLayout, 
                 beforeEnter: ifAuthorized,
                 children: [
                     {
-                        path: '/login',
-                        component: LoginPage
+                        path: 'login',
+                        component: LoginPage,
+                        name: 'login'
                     }
                 ]
             }
