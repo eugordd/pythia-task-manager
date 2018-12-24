@@ -34,7 +34,12 @@ import TimeIcon from '@/assets/svg/sidebar/calendar.svg'
 
 export default {
     name: 'Menu',
-    props: ['expanded'],
+    props: {
+        expanded: {
+            type: Boolean,
+            default: false
+        }
+    },
     components: {
         TasksIcon,
         ProfileIcon,

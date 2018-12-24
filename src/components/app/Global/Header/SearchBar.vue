@@ -1,6 +1,6 @@
 <template>
     <div class="searchbar-wrap">
-        <input type="text" class="searchbar" id="search" v-model="text" @input="changeText()">
+        <input type="text" class="searchbar" id="search" v-model="text" @input="changeText">
         <i class="searchbar-icon"></i>
         <label v-if="isEmpty" for="search" class="searchbar-label">Search</label>
     </div>

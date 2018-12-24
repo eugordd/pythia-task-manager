@@ -12,14 +12,6 @@
                 </button>
             </ul>
         </div>
-        <!-- Such a Header with button "Logout"
-        <button @click="logoutUser()">Logout</button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        ++
-        <router-link to="/app">Tasks</router-link>
-        ++
-        <router-link to="/app/profile">Profile</router-link>
-        ++ -->
     </header>
 </template>
 

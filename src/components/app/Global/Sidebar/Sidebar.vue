@@ -1,10 +1,15 @@
 <template>
-    <div tabindex="0" @blur="closeExpand" class="sidebar" ref="sidebar">
+    <div 
+        class="sidebar"
+        :class="{'sidebar_expanded': isExpanded}">
         <div class="sidebar-logo">
-            <a href="javascript:void(0);" class="sidebar-logo--img"></a>
+            <a href="javascript:void(0);" class="sidebar-logo--img" />
         </div>
         <Menu :expanded="isExpanded" />
-        <button class="sidebar-expand" type="button" @click="toggleExpand">
+        <button 
+            class="sidebar-expand" 
+            type="button" 
+            @click="toggleExpand">
             <ExpandIcon class="sidebar-expand--icon" />
         </button>
     </div>
@@ -27,19 +32,15 @@ export default {
     },
     methods: {
         toggleExpand() {
-            const open = () => {
-                this.$refs.sidebar.classList.add('expanded')
-                this.$refs.sidebar.focus()
-            }
-            const close = () => {
-                this.$refs.sidebar.classList.remove('expanded')
-                this.$refs.sidebar.blur()                
-            }
-            !this.isExpanded ? open() : close()
             this.isExpanded = !this.isExpanded
+            this.$nextTick(() =>{
+                if (this.isExpanded) {
+                    document.querySelector('body').addEventListener('click', this.closeExpand, { once: true })                    
+                }
+            }) 
         },
         closeExpand() {
-            this.isExpanded && this.toggleExpand()
+            this.isExpanded = false
         }
     }
 }
@@ -64,7 +65,7 @@ export default {
             outline: 0;
         }
 
-        &.expanded {
+        &_expanded {
             width: 250px;
         }
 

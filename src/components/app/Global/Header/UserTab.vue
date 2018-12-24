@@ -1,15 +1,28 @@
 <template>
-    <div tabindex="0" class="header-usertab" ref="usertab" v-on:blur="closeAccountInfo">
-        <div class="header-usertab-head" v-on:click="toggleAccountInfo">
-            <div class="header-usertab--img"></div>
+    <div class="header-usertab">
+        <div class="header-usertab-head" @click="toggleAccountInfo">
+            <div class="header-usertab--img" />
             <span class="header-usertab--name">{{ profile.username }}</span>
-            <i class="header-usertab--angle"></i>
+            <i class="header-usertab--angle" />
         </div>
         <div v-if="isOpen" class="header-usertab-body">
-            <router-link to="/app/profile" class="header-usertab-body--btn" type="button">Profile</router-link>
-            <router-link to="/app" class="header-usertab-body--btn" type="button">Tasks</router-link>
-            <div class="header-usertab-body--separator"></div>
-            <button class="header-usertab-body--btn" type="button" v-on:click="logoutUser">Log out</button>
+            <router-link 
+                to="/app/profile" 
+                class="header-usertab-body--btn">
+                Profile
+            </router-link>
+            <router-link 
+                to="/app" 
+                class="header-usertab-body--btn">
+                Tasks
+            </router-link>
+            <div class="header-usertab-body--separator" />
+            <button 
+                class="header-usertab-body--btn" 
+                type="button" 
+                @click="logoutUser">
+                Log out
+            </button>
         </div>
     </div>
 </template>
@@ -27,12 +40,12 @@ export default {
     methods: {
         ...mapActions(['getProfile', 'logout']),
         toggleAccountInfo() {
-            this.$nextTick(() => { 
-                this.isOpen 
-                ? this.$refs.usertab.focus() 
-                : this.$refs.usertab.blur() 
-            })
             this.isOpen = !this.isOpen
+            this.$nextTick(() => {
+                if (this.isOpen) { 
+                    document.querySelector('body').addEventListener('click', this.closeAccountInfo, { once: true })
+                }
+            })
         },
         closeAccountInfo() {
             this.isOpen = false

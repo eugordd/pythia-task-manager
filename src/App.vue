@@ -14,6 +14,9 @@ export default {
     @import url('https://fonts.googleapis.com/css?family=Roboto');
     
     body {
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
         min-width: 320px;
         font-family: 'Roboto', Arial, Helvetica, sans-serif;
         margin: 0;
