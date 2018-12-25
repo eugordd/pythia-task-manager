@@ -9,7 +9,11 @@ const store = new Vuex.Store({
     state: {
         isLoggedIn: false,
         profile: {},
-        tasks: {}
+        tasks: {},
+        tags: {
+            hard: {},
+            soft: {}
+        }
     },
     actions: {
         async login({ commit }, payload) {
@@ -29,6 +33,14 @@ const store = new Vuex.Store({
             const data = await API.getTasks()
             commit('setTasks', data)
         },
+        async getHardTags({ commit }) {
+            const data = await API.getHardTags()
+            commit('setHardTags', data)
+        },
+        async getSoftTags({ commit }) {
+            const data = await API.getSoftTags()
+            commit('setSoftTags', data)
+        },
         async changeTaskStatus({ dispatch }, payload) {
             await API.changeTaskStatus(payload)
             dispatch('getTasks')
@@ -46,12 +58,20 @@ const store = new Vuex.Store({
         },
         setTasks(state, tasks) {
             state.tasks = tasks
+        },
+        setHardTags(state, tags) {
+            state.tags.hard = tags
+        },
+        setSoftTags(state, tags) {
+            state.tags.soft = tags
         }
     },
     getters: {
         isLoggedIn: state => state.isLoggedIn,
         profile: state => state.profile,
-        tasks: state => state.tasks
+        tasks: state => state.tasks,
+        hardTags: state => state.tags.hard,
+        softTags: state => state.tags.soft,
     }
 })
 

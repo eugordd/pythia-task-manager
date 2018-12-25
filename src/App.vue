@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style lang="scss">
-    @import url('https://fonts.googleapis.com/css?family=Roboto');
+    @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
     
     body {
         height: 100vh;
@@ -25,5 +25,9 @@ export default {
 
     *, *::after, *::before {
         box-sizing: border-box;
+    }
+
+    .text-center {
+        text-align: center !important; 
     }
 </style>

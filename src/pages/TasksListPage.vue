@@ -7,14 +7,7 @@
             <!-- Backlog -->
             <div class="tasks__column">
                 <div class="tasks__column-title">Backlog</div>
-                <div class="tasks__card" v-for="task in tasks.backlog" :key="task.uid">
-                    <span class="tasks__card-title">{{ task.title }}</span>
-                    <span class="tasks__card-description">{{ task.description }}</span>
-                    <button 
-                        class="tasks__card-button" 
-                        @click="toSprint(task.uid)"
-                        :disabled="!task.next_step_allowed">→</button>
-                </div>
+                <Card v-for="task in tasks.backlog" :key="task.uid" :task=task :toNext=toSprint />
             </div>
 
             <!-- Sprint -->
@@ -59,14 +52,18 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Card from '@/components/app/Card/Card.vue'
 
 export default {
     name: 'TasksListPage',
+    components: {
+        Card
+    },
     computed: mapGetters(['tasks']),
     methods: { 
         ...mapActions(['getTasks', 'changeTaskStatus']),
-        toSprint(uid) {
-            this.changeTaskStatus({ uid })
+        toSprint(uid, tags) {
+            this.changeTaskStatus({ uid, tags })
         },
         toProcess(uid) {
             this.changeTaskStatus({ uid })
