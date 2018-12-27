@@ -75,9 +75,9 @@ export default {
 
 <style lang="scss">
     .card-modal {
-        position: absolute;
-        top: -84px;
-        left: -96px;
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100vw;
         height: 100vh;
         background-color: rgba(52, 52, 52, .75);

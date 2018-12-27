@@ -7,20 +7,15 @@
             <!-- Backlog -->
             <div class="tasks__column">
                 <div class="tasks__column-title">Backlog</div>
-                <Card v-for="task in tasks.backlog" :key="task.uid" :task=task :toNext=toSprint />
+                <Card v-for="task in tasks.backlog" :key="task.uid" :task="task" :toNext="toSprint"
+                :stage="1" />
             </div>
 
             <!-- Sprint -->
             <div class="tasks__column">
                 <div class="tasks__column-title">Sprint</div>
-                <div class="tasks__card" v-for="task in tasks.storypoint" :key="task.uid">
-                    <span class="tasks__card-title">{{ task.title }}</span>
-                    <span class="tasks__card-description">{{ task.description }}</span>
-                    <button 
-                        class="tasks__card-button" 
-                        @click="toProcess(task.uid)"
-                        :disabled="!task.next_step_allowed">→</button>
-                </div>
+                <Card v-for="task in tasks.storypoint" :key="task.uid" :task="task" :toNext="toProcess"
+                :stage="2" />
             </div>
 
             <!-- In Process -->

@@ -23,6 +23,11 @@ export default {
 			.then(response => response.data)
 			.catch(error => Promise.reject(error.response))
 	},
+	taskAddEstimation(data) {
+		return axios.post(api + 'tasks/' + data.uid + '/estimate', { estimation: data.estimation })
+			.then(response => response.data)
+			.catch(error => Promise.reject(error.response))
+	},
 	getHardTags() {
 		return axios.get(api + 'tags/hard')
 			.then(response => response.data)

@@ -30,4 +30,8 @@ export default {
     .text-center {
         text-align: center !important; 
     }
+
+    .text-left {
+        text-align: left !important; 
+    }
 </style>
