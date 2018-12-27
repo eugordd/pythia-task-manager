@@ -26,9 +26,13 @@ export default {
 <style lang="scss">
     .app-layout {
         display: flex;
+        width: 100%;
+        height: 100%;
 
         &--wrap {
             display: flex;
+            width: 100%;
+            height: 100%;
         }
 
         &--page {
@@ -39,6 +43,8 @@ export default {
             top: 84px;
             padding-top: 36px;
             padding-left: 53px;
+            width: 100%;
+            height: 100%;
         }
     }
 
