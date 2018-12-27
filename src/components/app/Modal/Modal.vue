@@ -55,7 +55,7 @@ export default {
     methods: {
         ...mapActions(['getHardTags', 'getSoftTags']),
         select(isSelected, tag) {
-            var index = this.selected.indexOf(tag)
+            let index = this.selected.indexOf(tag)
             if (isSelected) {
                 index === -1 && this.selected.push(tag)
             } else {

@@ -1,5 +1,9 @@
 <template>
-    <button type="button" ref="tag" class="card-modal-tag" @click="toggleTag">
+    <button 
+        type="button"
+        class="tag"
+        :class="{'tag_selected': selected}"
+        @click="toggleTag">
         {{tag.title}}
     </button>
 </template>
@@ -22,25 +26,16 @@ export default {
         }
     },
     methods: {
-        select() {
-            this.$refs.tag.classList.add('selected')
-            this.selected = true
-            this.toggle(this.selected, this.tag)
-        },
-        deselect() {
-            this.$refs.tag.classList.remove('selected')
-            this.selected = false
-            this.toggle(this.selected, this.tag)
-        },
         toggleTag() {
-            this.selected ? this.deselect() : this.select()
+            this.selected = !this.selected
+            this.toggle(this.selected, this.tag)
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    .card-modal-tag {
+    .tag {
         padding: 5px 10px;
         background: 0;
         border: 0;
@@ -68,7 +63,7 @@ export default {
             margin-right: 10px;
         }
 
-        &.selected {
+        &_selected {
             background-color: #4956F5;
             color: #ffffff;
         }
