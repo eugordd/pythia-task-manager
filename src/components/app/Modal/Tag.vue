@@ -2,20 +2,15 @@
     <button 
         type="button"
         class="tag"
-        :class="{'tag_selected': selected}"
+        :class="{'tag_selected': isSelected}"
         @click="toggleTag">
-        {{tag.title}}
+        {{tag.title}} 
     </button>
 </template>
 
 <script>
 export default {
     name: 'Tag',
-    data() {
-        return {
-            selected: false
-        }
-    },
     props: {
         tag: {
             type: Object,
@@ -23,12 +18,21 @@ export default {
         },
         toggle: {
             type: Function
+        },
+        selected: {
+            type: Boolean,
+            default: false
+        }
+    },
+    data() {
+        return {
+            isSelected: this.selected
         }
     },
     methods: {
         toggleTag() {
-            this.selected = !this.selected
-            this.toggle(this.selected, this.tag)
+            this.isSelected = !this.isSelected
+            this.toggle(this.isSelected, this.tag)
         }
     }
 }
