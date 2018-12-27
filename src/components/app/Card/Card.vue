@@ -41,7 +41,7 @@ import Tag from "../Modal/Tag.vue";
 import ArrowSvg from '@/assets/svg/arrow.svg'
 
 export default {
-  name: "Card",
+  name: 'Card',
   props: {
       task: {
           type: Object,

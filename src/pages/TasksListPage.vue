@@ -57,7 +57,8 @@ import Form from '@/components/app/NewTask/Form.vue'
 export default {
     name: 'TasksListPage',
     components: {
-        Card
+        Card,
+        Form
     },
     computed: mapGetters(['tasks']),
     data() {
@@ -86,9 +87,6 @@ export default {
     created() {
         this.getTasks()
     },
-    components: {
-        Form
-    }
 }
 </script>
 
