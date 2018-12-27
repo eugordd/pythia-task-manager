@@ -32,6 +32,10 @@ const store = new Vuex.Store({
         async changeTaskStatus({ dispatch }, payload) {
             await API.changeTaskStatus(payload)
             dispatch('getTasks')
+        },
+        async addTask({ dispatch }, payload) {
+            await API.addTask(payload)
+            dispatch('getTasks')
         }
     },
     mutations: {

@@ -22,5 +22,10 @@ export default {
 		return axios.post(api + 'tasks/' + data.uid + '/next')
 			.then(response => response.data)
 			.catch(error => Promise.reject(error.response))
+	},
+	addTask(data) {
+		return axios.post(api + 'tasks', data)
+			.then(response => response.data)
+			.catch(error => Promise.reject(error.response))		
 	}
 }

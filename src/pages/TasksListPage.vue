@@ -1,6 +1,10 @@
 <template>
     <div class="tasks-list">
-        <h1>Tasks</h1>
+        <div class="tasks-list-head">
+            <h1 class="tasks-list-head--title">Tasks</h1>
+            <button class="tasks-list-head--btn" type="button" @click="openNew" >Add new</button>
+            <Form v-if="open" :close="closeNew" />
+        </div>
 
         <!-- TASKS -->
         <div class="tasks">
@@ -59,10 +63,16 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Form from '@/components/app/NewTask/Form.vue'
 
 export default {
     name: 'TasksListPage',
     computed: mapGetters(['tasks']),
+    data() {
+        return {
+            open: false
+        }
+    },
     methods: { 
         ...mapActions(['getTasks', 'changeTaskStatus']),
         toSprint(uid) {
@@ -74,9 +84,18 @@ export default {
         toEnd(uid) {
             this.changeTaskStatus({ uid })
         },
+        openNew() {
+            this.open = true
+        },
+        closeNew() {
+            this.open = false
+        }
     },
     created() {
         this.getTasks()
+    },
+    components: {
+        Form
     }
 }
 </script>
@@ -86,6 +105,38 @@ export default {
 .tasks {
     display: flex;
     overflow-x: scroll;
+
+    &-list {
+        &-head {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+
+            &--title {
+                font-weight: 500;
+                font-size: 32px;
+                color: #2e2e2e;
+                margin-right: 40px;
+            }
+
+            &--btn {
+                border: 2px solid lighten(#4956F5, 20);
+                border-radius: 4px;
+                font-size: 16px;
+                line-height: 18px;
+                padding: 10px 15px;
+                color: #2e2e2e;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #4956f5;
+                    color: #fff;
+                    border-color: #4956f5;
+                }
+            }
+        }
+    }
 
     &__column {
         display: flex;
