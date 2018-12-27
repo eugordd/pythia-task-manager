@@ -94,7 +94,7 @@ export default {
 
 .tasks {
     display: flex;
-    overflow-x: scroll;
+    overflow-x: auto;
 
     &-list {
         &-head {

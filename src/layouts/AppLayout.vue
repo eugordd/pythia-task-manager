@@ -39,8 +39,9 @@ export default {
             background: #F7F8F9;
             flex: 1 1;
             position: relative;
-            left: 96px;
-            top: 84px;
+            overflow-y: auto;
+            margin-left: 96px;
+            margin-top: 84px;
             padding-top: 36px;
             padding-left: 53px;
             width: 100%;
