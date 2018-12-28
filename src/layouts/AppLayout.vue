@@ -7,10 +7,18 @@
                 <router-view />
             </div>
         </div>
+         <Snow 
+            :active='true' 
+            zIndex="2"
+            :wind='1' 
+            :swing='3' 
+            speed="m" 
+            color="#0000ff" />
     </div>
 </template>
 
 <script>
+import Snow from 'vue-niege';
 import Header from '@/components/app/Global/Header/Header.vue'
 import Sidebar from '@/components/app/Global/Sidebar/Sidebar.vue'
 
@@ -18,7 +26,8 @@ export default {
     name: 'AppLayout',
     components: {
         Sidebar,
-        Header
+        Header,
+        Snow
     }
 }
 </script>
