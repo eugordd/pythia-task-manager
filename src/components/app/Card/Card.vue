@@ -7,10 +7,19 @@
             <Tag v-for="tag in task.tags" :key="tag.uid" :tag="tag" :disabled="true" />
         </div>
         <div class="tasks__card-people">
-            <div class="tasks__card-people-dev" v-if="task.estimations" v-for="dev in task.estimations.users" :key="dev.uid" :title="getDevInfo(dev)">
+            <div 
+                class="tasks__card-people-dev" 
+                v-if="task.estimations" 
+                v-for="dev in task.estimations.users" 
+                :key="dev.uid" 
+                v-tooltip="getDevInfo(dev)">
                 <div class="tasks__card-people-dev--est">{{ parseEstimation(dev.estimation) }}</div>
             </div>
             <div class="tasks__card-people--add" @click="addEstimation"></div>
+        </div>
+         <div v-if="task.estimations.avg">
+            <span class="tasks__card-time">Ср. оцен. время - {{ parseEstimation(task.estimations.avg) }}</span><br>
+            <span class="tasks__card-time">Ср. прогноз. время {{ parseEstimation(task.estimations.pythia_avg) }}</span>
         </div>
     </div>
     <div v-else-if="stage === 3">
