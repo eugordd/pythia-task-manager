@@ -119,11 +119,14 @@ export default {
     },
     parseEstimation(est) {
         const hours = Math.floor(est)
-        const minutes = (est % 1) * 60
+        const minutes = ((est % 1) * 60).toFixed(0)
         return `${ hours }:${minutes.toString().length === 2 ? minutes : '0' + minutes }`
     },
     getDevInfo(dev) {
-        return `${ dev.username } — ${ this.parseEstimation(dev.estimation) }`
+        return `
+            <span>Оценка пользователя — ${ this.parseEstimation(dev.estimation) }</span><br>
+            <span>Прогнозируемое время — ${ this.parseEstimation(dev.pythia_estimation) }</span>
+        `
     }
   }
 };
@@ -153,18 +156,6 @@ export default {
                     height: 100%;
                     border-top-left-radius: 5px;
                     border-bottom-left-radius: 5px;
-                }
-            }
-
-            &.sprint {
-                &::before {
-                    background-color: #e22d48;
-                }
-            }
-
-            &.process {
-                &::before {
-                    background-color: #4956f5;
                 }
             }
 
