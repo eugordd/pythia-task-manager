@@ -5,7 +5,9 @@
             <h4 class="card-modal--title">{{ task.title }}</h4>
             <p class="card-modal--desc">{{ task.description }}</p>
             <p class="card-modal--desc">In {{ task.status }}</p>
-            <p class="card-modal--desc text-center">Enter the time limit:
+            <p v-if="!after" class="card-modal--desc text-center">Enter the time limit:
+            <input class="card-modal--input" type="time" @input="input" :value="estimation"></p>
+            <p v-else class="card-modal--desc text-center">Enter the time you've been working on this task for:
             <input class="card-modal--input" type="time" @input="input" :value="estimation"></p>
             <button type="submit" class="card-modal--finish">Submit</button>
         </form>
@@ -22,6 +24,10 @@ export default {
         Tag
     },
     props: {
+        after: {
+            type: Boolean,
+            default: false
+        },
         dragging: {
             type: Boolean,
             default: true
@@ -47,7 +53,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['taskAddEstimation']),
+        ...mapActions(['taskAddEstimation', ]),
         input(e) {
             this.estimation = e.target.value
         },
@@ -58,7 +64,11 @@ export default {
             const hours = parseInt(parsed[0])
             const minutes = parseFloat((parseInt(parsed[1]) / 60).toFixed(1))
             const estimation = hours + minutes
-            this.taskAddEstimation({uid, estimation})
+            if (!this.after) {
+                this.taskAddEstimation({uid, estimation})
+            } else {
+                this.toNext(uid, estimation)
+            } 
             this.cancel()
         }
     }
