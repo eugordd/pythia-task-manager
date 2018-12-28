@@ -42,5 +42,10 @@ export default {
 		return axios.post(api + 'tasks', data)
 			.then(response => response.data)
 			.catch(error => Promise.reject(error.response))		
+	},
+	attachTagToProfile(tagId) {
+		return axios.post(api + 'profile/tags/' + tagId)
+			.then(response => response.data)
+			.catch(error => Promise.reject(error.response))	
 	}
 }
