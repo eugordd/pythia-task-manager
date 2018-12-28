@@ -1,5 +1,5 @@
 <template>
-  <div class="tasks__card" :class="{ sprint: stage === 2, process: stage === 3 }">
+  <div class="tasks__card" :class="{ sprint: stage === 2, process: stage === 3, sprint_required: stage === 2 && task.estimation_required }">
     <span class="tasks__card-title">{{ task.title }}</span>
     <span class="tasks__card-description">{{ task.description }}</span>
     <div v-if="stage === 2">
@@ -15,7 +15,10 @@
                 v-tooltip="getDevInfo(dev)">
                 <div class="tasks__card-people-dev--est">{{ parseEstimation(dev.estimation) }}</div>
             </div>
-            <div class="tasks__card-people--add" @click="addEstimation"></div>
+            <div 
+                class="tasks__card-people--add" 
+                v-if="task.estimation_required"
+                @click="addEstimation" />
         </div>
          <div v-if="task.estimations.avg">
             <span class="tasks__card-time">Ср. оцен. время - {{ parseEstimation(task.estimations.avg) }}</span><br>
@@ -133,6 +136,7 @@ export default {
     },
     getDevInfo(dev) {
         return `
+            <span>${dev.username}</span><br>
             <span>Оценка пользователя — ${ this.parseEstimation(dev.estimation) }</span><br>
             <span>Прогнозируемое время — ${ this.parseEstimation(dev.pythia_estimation) }</span>
         `
@@ -165,6 +169,18 @@ export default {
                     height: 100%;
                     border-top-left-radius: 5px;
                     border-bottom-left-radius: 5px;
+                }
+            }
+
+            &.sprint_required {
+                &::before {
+                    background-color: #e22d48;
+                }
+            }
+
+            &.process {
+                &::before {
+                    background-color: #4956f5;
                 }
             }
 
