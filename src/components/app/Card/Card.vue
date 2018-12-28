@@ -1,19 +1,40 @@
 <template>
-  <div class="tasks__card" :class="{ sprint: stage === 2 }">
+  <div class="tasks__card" :class="{ sprint: stage === 2, process: stage === 3 }">
     <span class="tasks__card-title">{{ task.title }}</span>
     <span class="tasks__card-description">{{ task.description }}</span>
     <div v-if="stage === 2">
-        <Tag v-for="tag in task.tags" :key="tag.uid" :tag="tag" :disabled="true" />
-    </div>
-    <div v-if="stage === 2" class="tasks__card-people">
-        <div class="tasks__card-people-dev" v-if="task.estimations" v-for="dev in task.estimations.users" :key="dev" :title="getDevInfo(dev)">
-            <div class="tasks__card-people-dev--est">{{ parseEstimation(dev.estimation) }}</div>
+        <div>
+            <Tag v-for="tag in task.tags" :key="tag.uid" :tag="tag" :disabled="true" />
         </div>
-        <div class="tasks__card-people--add" @click="addEstimation"></div>
+        <div class="tasks__card-people">
+            <div class="tasks__card-people-dev" v-if="task.estimations" v-for="dev in task.estimations.users" :key="dev.uid" :title="getDevInfo(dev)">
+                <div class="tasks__card-people-dev--est">{{ parseEstimation(dev.estimation) }}</div>
+            </div>
+            <div class="tasks__card-people--add" @click="addEstimation"></div>
+        </div>
+    </div>
+    <div v-else-if="stage === 3">
+        <div>
+            <Tag v-for="tag in task.tags" :key="tag.uid" :tag="tag" :disabled="true" />
+        </div>
+        <div class="tasks__card-people flex">
+            <div class="tasks__card-people-dev"></div>
+            <span class="tasks__card-people-dev--name">{{ task.developer.username }}</span>
+        </div>
+    </div>
+    <div v-else-if="stage === 4">
+        <div>
+            <Tag v-for="tag in task.tags" :key="tag.uid" :tag="tag" :disabled="true" />
+        </div>
+        <div class="tasks__card-people flex">
+            <div class="tasks__card-people-dev"></div>
+            <span class="tasks__card-people-dev--name">{{ task.developer.username }}</span>
+        </div>
     </div>
     <button
       class="tasks__card-button"
-      @click="stage === 1 ? dragBacklogSprint() : toNext(task.uid)"
+      v-if="stage !== 4"
+      @click="next()"
       :disabled="!task.next_step_allowed"
     ><ArrowSvg /></button>
     <Modal 
@@ -26,6 +47,15 @@
     />
     <EstimateModal 
         v-if="estimating && stage === 2" 
+        :dragging="estimating" 
+        :cancel="cancelDragging" 
+        :task="task" 
+        :finish="dragBacklogSprint"
+        :toNext="toNext"
+    />
+    <EstimateModal
+        :after="true" 
+        v-if="dragging && stage === 3" 
         :dragging="estimating" 
         :cancel="cancelDragging" 
         :task="task" 
@@ -70,6 +100,13 @@ export default {
     };
   },
   methods: {
+    next() {
+      switch(this.stage) {
+          case 1: return this.dragBacklogSprint()
+          case 2: return this.toNext(this.task.uid)
+          case 3: return this.dragBacklogSprint()
+      }
+    },
     dragBacklogSprint() {
       this.dragging = true
     },
@@ -88,10 +125,6 @@ export default {
     getDevInfo(dev) {
         return `${ dev.username } — ${ this.parseEstimation(dev.estimation) }`
     }
-  },
-  created () {
-      if (this.stage === 2) 
-        console.log(this.task)
   }
 };
 </script>
@@ -108,7 +141,7 @@ export default {
             border-radius: 5px;
             margin-bottom: 20px;
             
-            &.sprint {
+            &.sprint, &.process {
                 position: relative;
 
                 &::before {
@@ -118,13 +151,30 @@ export default {
                     position: absolute;
                     width: 6px;
                     height: 100%;
-                    background-color: #e22d48;
                     border-top-left-radius: 5px;
                     border-bottom-left-radius: 5px;
                 }
             }
 
+            &.sprint {
+                &::before {
+                    background-color: #e22d48;
+                }
+            }
+
+            &.process {
+                &::before {
+                    background-color: #4956f5;
+                }
+            }
+
             &-people {
+                &.flex {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 10px;
+                }
+
                 &--add {
                     width: 28px;
                     height: 28px;
@@ -147,6 +197,12 @@ export default {
                     margin-right: 7px;
                     display: inline-block;
                     position: relative;
+
+                    &--name {
+                        font-size: 16px;
+                        line-height: 18px;
+                        margin-top: 0.1em;
+                    }
 
                     &--est {
                         position: absolute;

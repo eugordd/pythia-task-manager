@@ -31,11 +31,9 @@
 
             <!-- End -->
             <div class="tasks__column">
-                <div class="tasks__column-title">End</div>
-                <div class="tasks__card" v-for="task in tasks.archive" :key="task.uid">
-                    <span class="tasks__card-title">{{ task.title }}</span>
-                    <span class="tasks__card-description">{{ task.description }}</span>
-                </div>
+                <div class="tasks__column-title">Archive</div>
+                <Card v-for="task in tasks.archive" :key="task.uid" :task="task"
+                :stage="4" />
             </div>
             
         </div>
@@ -68,8 +66,8 @@ export default {
         toProcess(uid) {
             this.changeTaskStatus({ uid })
         },
-        toEnd(uid) {
-            this.changeTaskStatus({ uid })
+        toEnd(uid, hours) {
+            this.changeTaskStatus({ uid, hours })
         },
         openNew() {
             this.open = true
