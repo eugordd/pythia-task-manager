@@ -25,14 +25,8 @@
             <!-- In Process -->
             <div class="tasks__column">
                 <div class="tasks__column-title">In Process</div>
-                <div class="tasks__card" v-for="task in tasks.progress" :key="task.uid">
-                    <span class="tasks__card-title">{{ task.title }}</span>
-                    <span class="tasks__card-description">{{ task.description }}</span>
-                    <button 
-                        class="tasks__card-button" 
-                        @click="toEnd(task.uid)"
-                        :disabled="!task.next_step_allowed">→</button>
-                </div>
+                <Card v-for="task in tasks.progress" :key="task.uid" :task="task" :toNext="toEnd"
+                :stage="3" />
             </div>
 
             <!-- End -->
@@ -67,7 +61,7 @@ export default {
         }
     },
     methods: { 
-        ...mapActions(['getTasks', 'changeTaskStatus']),
+        ...mapActions(['getTasks', 'changeTaskStatus', 'startTask']),
         toSprint(uid, tags) {
             this.changeTaskStatus({ uid, tags })
         },

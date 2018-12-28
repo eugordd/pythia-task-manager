@@ -41,9 +41,9 @@ export default {
             position: relative;
             overflow-y: auto;
             margin-left: 96px;
-            margin-top: 84px;
-            padding-top: 36px;
+            padding-top: 110px;
             padding-left: 53px;
+            box-sizing: border-box;
             width: 100%;
             height: 100%;
         }

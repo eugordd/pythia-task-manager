@@ -45,6 +45,10 @@ const store = new Vuex.Store({
             await API.changeTaskStatus(payload)
             dispatch('getTasks')
         },
+        async startTask({ dispatch }, payload) {
+            await API.startTask(payload)
+            dispatch('getTasks')
+        },
         async taskAddEstimation({dispatch}, payload) {
             await API.taskAddEstimation(payload)
             dispatch('getTasks')
@@ -52,6 +56,10 @@ const store = new Vuex.Store({
         async addTask({ dispatch }, payload) {
             await API.addTask(payload)
             dispatch('getTasks')
+        },
+        async attachTagToProfile({ dispatch }, payload) {
+            await API.attachTagToProfile(payload)
+            dispatch('getProfile')
         }
     },
     mutations: {

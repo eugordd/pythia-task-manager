@@ -19,7 +19,12 @@ export default {
 			.catch(error => Promise.reject(error.response))
 	},
 	changeTaskStatus(data) {
-		return axios.post(api + 'tasks/' + data.uid + '/next', { tags: data.tags.map(val => val.uid) })
+		return axios.post(api + 'tasks/' + data.uid + '/next', data.tags && { tags: data.tags.map(val => val.uid) })
+			.then(response => response.data)
+			.catch(error => Promise.reject(error.response))
+	},
+	startTask(data) {
+		return axios.post(api + 'tasks/' + data.uid + '/start')
 			.then(response => response.data)
 			.catch(error => Promise.reject(error.response))
 	},
@@ -42,5 +47,10 @@ export default {
 		return axios.post(api + 'tasks', data)
 			.then(response => response.data)
 			.catch(error => Promise.reject(error.response))		
+	},
+	attachTagToProfile(tagId) {
+		return axios.post(api + 'profile/tags/' + tagId)
+			.then(response => response.data)
+			.catch(error => Promise.reject(error.response))	
 	}
 }
