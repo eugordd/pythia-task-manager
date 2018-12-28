@@ -6,12 +6,14 @@
         <Tag v-for="tag in task.tags" :key="tag.uid" :tag="tag" :disabled="true" />
     </div>
     <div v-if="stage === 2" class="tasks__card-people">
-        <div class="tasks__card-people--add" v-for="dev in task.estimations" :key="dev"></div>
+        <div class="tasks__card-people-dev" v-if="task.estimations" v-for="dev in task.estimations.users" :key="dev" :title="getDevInfo(dev)">
+            <div class="tasks__card-people-dev--est">{{ parseEstimation(dev.estimation) }}</div>
+        </div>
         <div class="tasks__card-people--add" @click="addEstimation"></div>
     </div>
     <button
       class="tasks__card-button"
-      @click="dragBacklogSprint"
+      @click="stage === 1 ? dragBacklogSprint() : toNext(task.uid)"
       :disabled="!task.next_step_allowed"
     ><ArrowSvg /></button>
     <Modal 
@@ -77,11 +79,19 @@ export default {
     },
     addEstimation() {
         this.estimating = true
+    },
+    parseEstimation(est) {
+        const hours = Math.floor(est)
+        const minutes = (est % 1) * 60
+        return `${ hours }:${minutes.toString().length === 2 ? minutes : '0' + minutes }`
+    },
+    getDevInfo(dev) {
+        return `${ dev.username } — ${ this.parseEstimation(dev.estimation) }`
     }
   },
   created () {
-    //   if (this.stage === 2) 
-        // console.log(this.task)
+      if (this.stage === 2) 
+        console.log(this.task)
   }
 };
 </script>
@@ -125,6 +135,33 @@ export default {
                     background-size: 8px;
                     background-position: center;
                     cursor: pointer;
+                    display: inline-block;
+                }
+
+                &-dev {
+                    width: 28px;
+                    height: 28px;
+                    background-color: #000;
+                    cursor: pointer;
+                    border-radius: 50%;
+                    margin-right: 7px;
+                    display: inline-block;
+                    position: relative;
+
+                    &--est {
+                        position: absolute;
+                        bottom: -2px;
+                        right: -6px;
+                        // width: 17px;
+                        // height: 11px;
+                        padding: 1px 2px;
+                        border: 2px solid #fff;
+                        border-radius: 5px;
+                        font-weight: 900;
+                        font-size: 10px;
+                        color: #ffffff;
+                        background-color: #b3becb;
+                    }
                 }
             }
 
@@ -148,6 +185,11 @@ export default {
                 padding: 4px 12px;
                 align-self: flex-end;
                 border: 0;
+                cursor: pointer;
+
+                &:focus {
+                    outline: 0;
+                }
 
                 &:disabled {
                     background: #AAB3BC;

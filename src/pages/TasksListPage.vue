@@ -67,12 +67,12 @@ export default {
         }
     },
     methods: { 
-        ...mapActions(['getTasks', 'changeTaskStatus']),
+        ...mapActions(['getTasks', 'changeTaskStatus', 'startTask']),
         toSprint(uid, tags) {
             this.changeTaskStatus({ uid, tags })
         },
         toProcess(uid) {
-            this.changeTaskStatus({ uid })
+            this.startTask({ uid })
         },
         toEnd(uid) {
             this.changeTaskStatus({ uid })
