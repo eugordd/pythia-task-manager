@@ -4,7 +4,7 @@
         class="tag"
         :class="{'tag_selected': isSelected}"
         @click="toggleTag">
-        {{tag.title}} 
+        {{ tag.title }} 
     </button>
 </template>
 
@@ -41,6 +41,7 @@ export default {
 <style lang="scss" scoped>
     .tag {
         padding: 5px 10px;
+        margin: 5px;
         background: 0;
         border: 0;
         border-radius: 2px;
@@ -57,10 +58,6 @@ export default {
 
         &:focus {
             outline: 0;
-        }
-
-        &:first-child {
-            margin-bottom: 10px;
         }
 
         &:not(:last-child) {

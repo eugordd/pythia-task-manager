@@ -8,10 +8,13 @@
                 And a bit more info about user
             </div>
             <div class="profile__tags">
-                <h4>Hard Tags:</h4>
-                <Tag v-for="tag in userHard" :key="tag.uid" :tag="tag" :selected="tag.selected" />
-                <h4>Soft Tags:</h4>
-                <Tag v-for="tag in userSoft" :key="tag.uid" :tag="tag" :selected="tag.selected" />
+                <h4>Tags:</h4>
+                <Tag 
+                    v-for="tag in userHard" 
+                    :key="tag.uid" 
+                    :tag="tag" 
+                    :selected="tag.selected" 
+                    :toggle="select" />
             </div>
         </div>
     </div>
@@ -28,26 +31,22 @@ export default {
     },
     data() {
         return {
-            userHard: [],
-            userSoft: []
+            userHard: []
         }
     },
     computed: {
-        ...mapGetters(['profile', 'hardTags', 'softTags']),
+        ...mapGetters(['profile', 'hardTags']),
     },
-    methods: mapActions(['getProfile', 'getHardTags', 'getSoftTags']),
+    methods: {
+        ...mapActions(['getProfile', 'getHardTags', 'attachTagToProfile']),
+        select(isSelected, tag) {
+            if (isSelected) this.attachTagToProfile(tag.uid)
+        }
+    },
     created() {
         this.getProfile()
         this.getHardTags().then(() => {
             this.userHard = this.hardTags.map(tag => {
-                let selected = this.profile.tags
-                    .map(profileTag => profileTag.uid)
-                    .includes(tag.uid)
-                return { ...tag, selected }
-            })
-        })
-        this.getSoftTags().then(() => {
-            this.userSoft = this.softTags.map(tag => {
                 let selected = this.profile.tags
                     .map(profileTag => profileTag.uid)
                     .includes(tag.uid)
