@@ -19,7 +19,6 @@ export default {
 			.catch(error => Promise.reject(error.response))
 	},
 	changeTaskStatus(data) {
-		console.log(data)
 		return axios.post(
 			api + 'tasks/' + data.uid + '/next', 
 			data.tags ? { tags: data.tags.map(val => val.uid) } : { hours: data.hours })

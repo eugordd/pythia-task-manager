@@ -7,20 +7,20 @@
 </template>
 
 <script>
-export default {
-    name: 'SearchBar',
-    data() {
-        return {
-            text: '',
-            isEmpty: true
-        }
-    },
-    methods: {
-        changeText() {
-            this.isEmpty = this.text.length === 0
+    export default {
+        name: 'SearchBar',
+        data() {
+            return {
+                text: '',
+                isEmpty: true
+            }
+        },
+        methods: {
+            changeText() {
+                this.isEmpty = this.text.length === 0
+            }
         }
     }
-}
 </script>
 
 <style lang="scss">

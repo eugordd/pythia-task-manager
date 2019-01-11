@@ -28,24 +28,24 @@
 </template>
 
 <script>
-import TasksIcon from '@/assets/svg/sidebar/tasks.svg'
-import ProfileIcon from '@/assets/svg/sidebar/profile.svg'
-import TimeIcon from '@/assets/svg/sidebar/calendar.svg'
+    import TasksIcon from '@/assets/svg/sidebar/tasks.svg'
+    import ProfileIcon from '@/assets/svg/sidebar/profile.svg'
+    import TimeIcon from '@/assets/svg/sidebar/calendar.svg'
 
-export default {
-    name: 'Menu',
-    props: {
-        expanded: {
-            type: Boolean,
-            default: false
+    export default {
+        name: 'Menu',
+        props: {
+            expanded: {
+                type: Boolean,
+                default: false
+            }
+        },
+        components: {
+            TasksIcon,
+            ProfileIcon,
+            TimeIcon
         }
-    },
-    components: {
-        TasksIcon,
-        ProfileIcon,
-        TimeIcon
     }
-}
 </script>
 
 <style lang="scss">

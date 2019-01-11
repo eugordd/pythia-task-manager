@@ -42,44 +42,44 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import Card from '@/components/app/Card/Card.vue'
-import Form from '@/components/app/NewTask/Form.vue'
+    import { mapActions, mapGetters } from 'vuex';
+    import Card from '@/components/app/Card/Card.vue'
+    import Form from '@/components/app/NewTask/Form.vue'
 
-export default {
-    name: 'TasksListPage',
-    components: {
-        Card,
-        Form
-    },
-    computed: mapGetters(['tasks']),
-    data() {
-        return {
-            open: false
+    export default {
+        name: 'TasksListPage',
+        components: {
+            Card,
+            Form
+        },
+        computed: mapGetters(['tasks']),
+        data() {
+            return {
+                open: false
+            }
+        },
+        methods: { 
+            ...mapActions(['getTasks', 'changeTaskStatus', 'startTask']),
+            toSprint(uid, tags) {
+                this.changeTaskStatus({ uid, tags })
+            },
+            toProcess(uid) {
+                this.changeTaskStatus({ uid })
+            },
+            toEnd(uid, hours) {
+                this.changeTaskStatus({ uid, hours })
+            },
+            openNew() {
+                this.open = true
+            },
+            closeNew() {
+                this.open = false
+            }
+        },
+        created() {
+            this.getTasks()
         }
-    },
-    methods: { 
-        ...mapActions(['getTasks', 'changeTaskStatus', 'startTask']),
-        toSprint(uid, tags) {
-            this.changeTaskStatus({ uid, tags })
-        },
-        toProcess(uid) {
-            this.changeTaskStatus({ uid })
-        },
-        toEnd(uid, hours) {
-            this.changeTaskStatus({ uid, hours })
-        },
-        openNew() {
-            this.open = true
-        },
-        closeNew() {
-            this.open = false
-        }
-    },
-    created() {
-        this.getTasks()
-    },
-}
+    }
 </script>
 
 <style lang="scss" scoped>

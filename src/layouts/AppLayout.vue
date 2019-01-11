@@ -1,24 +1,16 @@
 <template>
     <div class="app-layout">
         <Sidebar />
-        <div class="app-layout--wrap">
+        <div class="app-layout__wrap">
             <Header />
-            <div class="app-layout--page">
+            <div class="app-layout__page">
                 <router-view />
             </div>
         </div>
-         <Snow 
-            :active='true' 
-            zIndex="2"
-            :wind='1' 
-            :swing='3' 
-            speed="m" 
-            color="#0000ff" />
     </div>
 </template>
 
 <script>
-import Snow from 'vue-niege';
 import Header from '@/components/app/Global/Header/Header.vue'
 import Sidebar from '@/components/app/Global/Sidebar/Sidebar.vue'
 
@@ -26,8 +18,7 @@ export default {
     name: 'AppLayout',
     components: {
         Sidebar,
-        Header,
-        Snow
+        Header
     }
 }
 </script>
@@ -38,13 +29,13 @@ export default {
         width: 100%;
         height: 100%;
 
-        &--wrap {
+        &__wrap {
             display: flex;
             width: 100%;
             height: 100%;
         }
 
-        &--page {
+        &__page {
             background: #F7F8F9;
             flex: 1 1;
             position: relative;

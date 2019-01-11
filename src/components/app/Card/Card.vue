@@ -9,11 +9,14 @@
         <div class="tasks__card-people">
             <div 
                 class="tasks__card-people-dev" 
-                v-if="task.estimations" 
-                v-for="dev in task.estimations.users" 
-                :key="dev.uid" 
-                v-tooltip="getDevInfo(dev)">
-                <div class="tasks__card-people-dev--est">{{ parseEstimation(dev.estimation) }}</div>
+                v-if="task.estimations">
+                <div 
+                    class="tasks__card-people-dev--est"
+                    v-for="dev in task.estimations.users"
+                    :key="dev.uid"
+                    v-tooltip="getDevInfo(dev)">
+                    {{ parseEstimation(dev.estimation) }}
+                </div>
             </div>
             <div 
                 class="tasks__card-people--add" 
@@ -78,71 +81,71 @@
 </template>
 
 <script>
-import Modal from "../Modal/Modal.vue";
-import EstimateModal from "../Modal/EstimateModal.vue";
-import Tag from "../Modal/Tag.vue";
+    import Modal from "../Modal/Modal.vue";
+    import EstimateModal from "../Modal/EstimateModal.vue";
+    import Tag from "../Modal/Tag.vue";
 
-import ArrowSvg from '@/assets/svg/arrow.svg'
+    import ArrowSvg from '@/assets/svg/arrow.svg'
 
-export default {
-  name: 'Card',
-  props: {
-      task: {
-          type: Object,
-          default: () => {}
-      },
-      toNext: {
-          type: Function
-      },
-      stage: {
-          type: Number,
-          default: 1
-      }
-  },
-  components: {
-    Modal,
-    Tag,
-    EstimateModal,
-    ArrowSvg
-  },
-  data() {
-    return {
-      dragging: false,
-      estimating: false
-    };
-  },
-  methods: {
-    next() {
-      switch(this.stage) {
-          case 1: return this.dragBacklogSprint()
-          case 2: return this.toNext(this.task.uid)
-          case 3: return this.dragBacklogSprint()
-      }
-    },
-    dragBacklogSprint() {
-      this.dragging = true
-    },
-    cancelDragging() {
-        this.dragging = false
-        this.estimating = false
-    },
-    addEstimation() {
-        this.estimating = true
-    },
-    parseEstimation(est) {
-        const hours = Math.floor(est)
-        const minutes = ((est % 1) * 60).toFixed(0)
-        return `${ hours }:${minutes.toString().length === 2 ? minutes : '0' + minutes }`
-    },
-    getDevInfo(dev) {
-        return `
-            <span>${dev.username}</span><br>
-            <span>Оценка пользователя — ${ this.parseEstimation(dev.estimation) }</span><br>
-            <span>Прогнозируемое время — ${ this.parseEstimation(dev.pythia_estimation) }</span>
-        `
+    export default {
+        name: 'Card',
+        props: {
+            task: {
+                type: Object,
+                default: () => {}
+            },
+            toNext: {
+                type: Function
+            },
+            stage: {
+                type: Number,
+                default: 1
+            }
+        },
+        components: {
+            Modal,
+            Tag,
+            EstimateModal,
+            ArrowSvg
+        },
+        data() {
+            return {
+                dragging: false,
+                estimating: false
+            }
+        },
+        methods: {
+            next() {
+                switch(this.stage) {
+                    case 1: return this.dragBacklogSprint()
+                    case 2: return this.toNext(this.task.uid)
+                    case 3: return this.dragBacklogSprint()
+                }
+            },
+            dragBacklogSprint() {
+                this.dragging = true
+            },
+            cancelDragging() {
+                this.dragging = false
+                this.estimating = false
+            },
+            addEstimation() {
+                this.estimating = true
+            },
+            parseEstimation(est) {
+                const hours = Math.floor(est)
+                const minutes = ((est % 1) * 60).toFixed(0)
+                return `${ hours }:${minutes.toString().length === 2 ? minutes : '0' + minutes }`
+            },
+            getDevInfo(dev) {
+                return `
+                    <span>${dev.username}</span><br>
+                    <span>Оценка пользователя — ${ this.parseEstimation(dev.estimation) }</span><br>
+                    <span>Прогнозируемое время — ${ this.parseEstimation(dev.pythia_estimation) }</span>
+                `
+            }
+        }
     }
-  }
-};
 </script>
 
 <style lang="scss">

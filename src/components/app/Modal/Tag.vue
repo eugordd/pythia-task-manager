@@ -9,33 +9,33 @@
 </template>
 
 <script>
-export default {
-    name: 'Tag',
-    props: {
-        tag: {
-            type: Object,
-            default: () => {}
+    export default {
+        name: 'Tag',
+        props: {
+            tag: {
+                type: Object,
+                default: () => {}
+            },
+            toggle: {
+                type: Function
+            },
+            selected: {
+                type: Boolean,
+                default: false
+            }
         },
-        toggle: {
-            type: Function
+        data() {
+            return {
+                isSelected: this.selected
+            }
         },
-        selected: {
-            type: Boolean,
-            default: false
-        }
-    },
-    data() {
-        return {
-            isSelected: this.selected
-        }
-    },
-    methods: {
-        toggleTag() {
-            this.isSelected = !this.isSelected
-            this.toggle(this.isSelected, this.tag)
+        methods: {
+            toggleTag() {
+                this.isSelected = !this.isSelected
+                this.toggle(this.isSelected, this.tag)
+            }
         }
     }
-}
 </script>
 
 <style lang="scss" scoped>

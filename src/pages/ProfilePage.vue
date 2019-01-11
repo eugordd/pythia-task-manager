@@ -21,40 +21,40 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import Tag from '@/components/app/Modal/Tag.vue'
+    import { mapGetters, mapActions } from 'vuex'
+    import Tag from '@/components/app/Modal/Tag.vue'
 
-export default {
-    name: 'ProfilePage',
-    components:{
-        Tag
-    },
-    data() {
-        return {
-            userHard: []
-        }
-    },
-    computed: {
-        ...mapGetters(['profile', 'hardTags']),
-    },
-    methods: {
-        ...mapActions(['getProfile', 'getHardTags', 'attachTagToProfile']),
-        select(isSelected, tag) {
-            if (isSelected) this.attachTagToProfile(tag.uid)
-        }
-    },
-    created() {
-        this.getProfile()
-        this.getHardTags().then(() => {
-            this.userHard = this.hardTags.map(tag => {
-                let selected = this.profile.tags
-                    .map(profileTag => profileTag.uid)
-                    .includes(tag.uid)
-                return { ...tag, selected }
+    export default {
+        name: 'ProfilePage',
+        components:{
+            Tag
+        },
+        data() {
+            return {
+                userHard: []
+            }
+        },
+        computed: {
+            ...mapGetters(['profile', 'hardTags']),
+        },
+        methods: {
+            ...mapActions(['getProfile', 'getHardTags', 'attachTagToProfile']),
+            select(isSelected, tag) {
+                if (isSelected) this.attachTagToProfile(tag.uid)
+            }
+        },
+        created() {
+            this.getProfile()
+            this.getHardTags().then(() => {
+                this.userHard = this.hardTags.map(tag => {
+                    let selected = this.profile.tags
+                        .map(profileTag => profileTag.uid)
+                        .includes(tag.uid)
+                    return { ...tag, selected }
+                })
             })
-        })
+        }
     }
-}
 </script>
 
 <style lang="scss">

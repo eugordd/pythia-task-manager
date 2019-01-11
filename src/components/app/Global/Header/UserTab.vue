@@ -28,36 +28,36 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-export default {
-    name: 'UserTab',
-    data() {
-        return {
-            isOpen: false
-        }
-    },
-    computed: mapGetters(['profile']),
-    methods: {
-        ...mapActions(['getProfile', 'logout']),
-        toggleAccountInfo() {
-            this.isOpen = !this.isOpen
-            this.$nextTick(() => {
-                if (this.isOpen) { 
-                    document.querySelector('body').addEventListener('click', this.closeAccountInfo, { once: true })
-                }
-            })
+    import { mapActions, mapGetters } from 'vuex'
+    export default {
+        name: 'UserTab',
+        data() {
+            return {
+                isOpen: false
+            }
         },
-        closeAccountInfo() {
-            this.isOpen = false
+        computed: mapGetters(['profile']),
+        methods: {
+            ...mapActions(['getProfile', 'logout']),
+            toggleAccountInfo() {
+                this.isOpen = !this.isOpen
+                this.$nextTick(() => {
+                    if (this.isOpen) { 
+                        document.querySelector('body').addEventListener('click', this.closeAccountInfo, { once: true })
+                    }
+                })
+            },
+            closeAccountInfo() {
+                this.isOpen = false
+            },
+            logoutUser() {
+                this.logout().then(() => this.$router.push('/login'))
+            }
         },
-        logoutUser() {
-            this.logout().then(() => this.$router.push('/login'))
+        created() {
+            this.getProfile()
         }
-    },
-    created() {
-        this.getProfile()
     }
-}
 </script>
 
 <style lang="scss">

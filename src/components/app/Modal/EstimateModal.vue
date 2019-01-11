@@ -15,64 +15,60 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import Tag from './Tag.vue'
+    import { mapGetters, mapActions } from 'vuex'
 
-export default {
-    name: 'EstimateModal',
-    components: {
-        Tag
-    },
-    props: {
-        after: {
-            type: Boolean,
-            default: false
+    export default {
+        name: 'EstimateModal',
+        props: {
+            after: {
+                type: Boolean,
+                default: false
+            },
+            dragging: {
+                type: Boolean,
+                default: true
+            },
+            cancel: {
+                type: Function
+            },
+            finish: {
+                type: Function
+            },
+            task: {
+                type: Object,
+                default: () => {}
+            },
+            toNext: {
+                type: Function
+            }
         },
-        dragging: {
-            type: Boolean,
-            default: true
+        computed: mapGetters(['hardTags', 'softTags']),
+        data() {
+            return {
+                estimation: '00:00'
+            }
         },
-        cancel: {
-            type: Function
-        },
-        finish: {
-            type: Function
-        },
-        task: {
-            type: Object,
-            default: () => {}
-        },
-        toNext: {
-            type: Function
-        }
-    },
-    computed: mapGetters(['hardTags', 'softTags']),
-    data() {
-        return {
-            estimation: '00:00'
-        }
-    },
-    methods: {
-        ...mapActions(['taskAddEstimation', ]),
-        input(e) {
-            this.estimation = e.target.value
-        },
-        submit(event) {
-            event.preventDefault()
-            const uid = this.task.uid
-            const parsed = this.estimation.split(':')
-            const hours = parseInt(parsed[0])
-            const minutes = parseFloat((parseInt(parsed[1]) / 60).toFixed(1))
-            const estimation = hours + minutes
-            if (!this.after) {
-                this.taskAddEstimation({uid, estimation})
-            } else {
-                this.toNext(uid, estimation)
-            } 
-            this.cancel()
+        methods: {
+            ...mapActions(['taskAddEstimation', ]),
+            input(e) {
+                this.estimation = e.target.value
+            },
+            submit(event) {
+                event.preventDefault()
+                const uid = this.task.uid
+                const parsed = this.estimation.split(':')
+                const hours = parseInt(parsed[0])
+                const minutes = parseFloat((parseInt(parsed[1]) / 60).toFixed(1))
+                const estimation = hours + minutes
+                if (!this.after) {
+                    this.taskAddEstimation({uid, estimation})
+                } else {
+                    this.toNext(uid, estimation)
+                } 
+                this.cancel()
+            }
         }
     }
-}
 </script>
 
 <style lang="scss">

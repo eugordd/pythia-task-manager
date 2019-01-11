@@ -11,32 +11,30 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+    import { mapActions } from 'vuex';
 
-export default {
-    name: 'Form',
-    methods: {
-        ...mapActions(['addTask']),
-        submit(e) {
-            e.preventDefault()
-            const title = this.title
-            const description = this.description
-            this.addTask({title, description})
-            this.close()
-        }
-    },
-    props: {
-        close: {
-            type: Function
-        }
-    },
-    data() {
-        return {
-            title: '',
-            description: ''
+    export default {
+        name: 'Form',
+        props: {
+            close: {
+                type: Function
+            }
+        },
+        data() {
+            return {
+                title: '',
+                description: ''
+            }
+        },
+        methods: {
+            ...mapActions(['addTask']),
+            submit(e) {
+                e.preventDefault()
+                this.addTask({title: this.title, description: this.description})
+                this.close()
+            }
         }
     }
-}
 </script>
 
 <style lang="scss">

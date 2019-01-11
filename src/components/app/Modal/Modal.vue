@@ -19,58 +19,58 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import Tag from './Tag.vue'
+    import { mapGetters, mapActions } from 'vuex'
+    import Tag from './Tag.vue'
 
-export default {
-    name: 'Modal',
-    components: {
-        Tag
-    },
-    props: {
-        dragging: {
-            type: Boolean,
-            default: true
+    export default {
+        name: 'Modal',
+        components: {
+            Tag
         },
-        cancel: {
-            type: Function
-        },
-        finish: {
-            type: Function
-        },
-        task: {
-            type: Object,
-            default: () => {}
-        },
-        toNext: {
-            type: Function
-        }
-    },
-    computed: mapGetters(['hardTags', 'softTags']),
-    data() {
-        return {
-            selected: []
-        }
-    },
-    methods: {
-        ...mapActions(['getHardTags', 'getSoftTags']),
-        select(isSelected, tag) {
-            let index = this.selected.indexOf(tag)
-            if (isSelected) {
-                index === -1 && this.selected.push(tag)
-            } else {
-                index !== -1 && this.selected.splice(index, 1)
+        props: {
+            dragging: {
+                type: Boolean,
+                default: true
+            },
+            cancel: {
+                type: Function
+            },
+            finish: {
+                type: Function
+            },
+            task: {
+                type: Object,
+                default: () => {}
+            },
+            toNext: {
+                type: Function
             }
         },
-        submit() {
-            this.toNext(this.task.uid, this.selected)
+        computed: mapGetters(['hardTags', 'softTags']),
+        data() {
+            return {
+                selected: []
+            }
+        },
+        methods: {
+            ...mapActions(['getHardTags', 'getSoftTags']),
+            select(isSelected, tag) {
+                let index = this.selected.indexOf(tag)
+                if (isSelected) {
+                    index === -1 && this.selected.push(tag)
+                } else {
+                    index !== -1 && this.selected.splice(index, 1)
+                }
+            },
+            submit() {
+                this.toNext(this.task.uid, this.selected)
+            }
+        },
+        created() {
+            this.getHardTags()
+            this.getSoftTags()
         }
-    },
-    created() {
-        this.getHardTags()
-        this.getSoftTags()
     }
-}
 </script>
 
 <style lang="scss">

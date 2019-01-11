@@ -16,16 +16,16 @@
 </template>
 
 <script>
-import SearchBar from './SearchBar.vue'
-import UserTab from './UserTab.vue'
+    import SearchBar from './SearchBar.vue'
+    import UserTab from './UserTab.vue'
 
-export default {
-    name: 'Header',
-    components: {
-        SearchBar,
-        UserTab
+    export default {
+        name: 'Header',
+        components: {
+            SearchBar,
+            UserTab
+        }
     }
-}
 </script>
 
 <style lang="scss">

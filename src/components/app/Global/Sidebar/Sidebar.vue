@@ -16,34 +16,34 @@
 </template>
 
 <script>
-import Menu from './Menu.vue'
-import ExpandIcon from '@/assets/svg/sidebar/expand.svg'
+    import Menu from './Menu.vue'
+    import ExpandIcon from '@/assets/svg/sidebar/expand.svg'
 
-export default {
-    name: 'Sidebar',
-    components: {
-        Menu,
-        ExpandIcon
-    },
-    data() {
-        return {
-            isExpanded: false
-        }
-    },
-    methods: {
-        toggleExpand() {
-            this.isExpanded = !this.isExpanded
-            this.$nextTick(() =>{
-                if (this.isExpanded) {
-                    document.querySelector('body').addEventListener('click', this.closeExpand, { once: true })                    
-                }
-            }) 
+    export default {
+        name: 'Sidebar',
+        components: {
+            Menu,
+            ExpandIcon
         },
-        closeExpand() {
-            this.isExpanded = false
+        data() {
+            return {
+                isExpanded: false
+            }
+        },
+        methods: {
+            toggleExpand() {
+                this.isExpanded = !this.isExpanded
+                this.$nextTick(() =>{
+                    if (this.isExpanded) {
+                        document.querySelector('body').addEventListener('click', this.closeExpand, { once: true })                    
+                    }
+                }) 
+            },
+            closeExpand() {
+                this.isExpanded = false
+            }
         }
     }
-}
 </script>
 
 <style lang="scss">

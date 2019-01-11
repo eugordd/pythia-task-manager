@@ -13,25 +13,25 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+    import { mapActions } from 'vuex'
 
-export default {
-    name: 'LoginPage',
-    data() {
-        return {
-            user: {
-                username: '',
-                password: ''
+    export default {
+        name: 'LoginPage',
+        data() {
+            return {
+                user: {
+                    username: '',
+                    password: ''
+                }
+            }
+        },
+        methods: {
+            ...mapActions(['login']),
+            loginUser(user) {
+                this.login(user).then(() => this.$router.push({ path: '/app' }))
             }
         }
-    },
-    methods: {
-        ...mapActions(['login']),
-        loginUser(user) {
-            this.login(user).then(() => this.$router.push({ path: '/app' }))
-        }
     }
-}
 </script>
 
 <style lang="sass" scoped>
@@ -44,7 +44,4 @@ export default {
             flex-direction: column
             width: 300px
             padding: 10px
-
-    input
-      caret-color: red
 </style>
